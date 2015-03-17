@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{prettyDiffTitle}}</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                background-color: #fafafa;
+                font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+            }
+            .pretty-diff-export-title {
+                height: 60px;
+                line-height: 60px;
+                background-color: #36393B;
+                color: #ffffff;
+                font-size: 18px;
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+            .pretty-diff-export-description {
+                background-color: #fff;
+                margin: 30px 25px 0;
+                padding: 25px;
+            }
+            .pretty-diff-export-content {
+                padding: 30px 25px;
+            }
+            {{{prettyDiffCss}}}
+        </style>
+    </head>
+    <body>
+        <div class="pretty-diff-container">
+            {{#if prettyDiffTitle}}
+                <div class="pretty-diff-export-title">
+                    {{prettyDiffTitle}}
+                </div>
+            {{/if}}
+            {{#if prettyDiffDesc}}
+                <div class="pretty-diff-export-description">
+                    {{{prettyDiffDesc}}}
+                </div>
+            {{/if}}
+            <div class="pretty-diff-side-by-side pretty-diff-export-content">
+                {{{prettyDiffHtml}}}
+            </div>
+        </div>
+    </body>
+</html>
+

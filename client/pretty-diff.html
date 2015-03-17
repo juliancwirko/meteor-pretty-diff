@@ -1,0 +1,49 @@
+<template name="prettyDiffInput">
+    <div class="pretty-diff-input">
+        <div class="pretty-diff-fake-file">
+            <input type="text" readonly class="pretty-diff-fake-file-input js-fake-file-name" placeholder="Upload your diff file..">
+            <button class="pretty-diff-fake-file-button js-fake-choose-file-btn">Choose</button>
+        </div>
+        <input type="file" class="pretty-diff-hidden pretty-diff-input-file js-file-reader">
+    </div>
+</template>
+
+<template name="prettyDiffError">
+    {{#if prettyDiffError}}
+        <div class="pretty-diff-error">
+            {{prettyDiffError}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="prettyDiffOutput">
+    <div class="pretty-diff-side-by-side js-pretty-diff">
+        {{#with prettyDiffFileData}}
+            <div class="pretty-diff-header {{#unless isExportDescription}}pretty-diff-hidden{{/unless}}">
+                <div class="pretty-diff-header-title-container" data-pd-hint="Title for your export">
+                    <input type="text" class="pretty-diff-header-title js-export-title" placeholder="Place your title here..">
+                </div>
+                <div class="pretty-diff-description-container" data-pd-hint="Description for your export. You can use markdown">
+                    <textarea class="pretty-diff-header-description js-export-description" placeholder="Place your description here.."></textarea>
+                </div>
+            </div>
+            <div class="pretty-diff-toolbar">
+                <a href="#" class="pretty-diff-btn pretty-diff-download-html-btn js-export-pdf">Download HTML</a>
+                <a href="#" class="pretty-diff-btn pretty-diff-desc-btn js-add-description">
+                    {{#if isExportDescription}}
+                        Hide description
+                    {{else}}
+                        Show description
+                    {{/if}}
+                </a>
+            </div>
+            <div class="pretty-diff-content">
+                {{> prettyDiffContent}}
+            </div>
+        {{/with}}
+    </div>
+</template>
+
+<template name="prettyDiffContent">
+    {{{prettyDiffHtml}}}
+</template>
