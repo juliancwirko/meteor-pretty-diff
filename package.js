@@ -1,6 +1,6 @@
 Package.describe({
     'summary': 'Prettify and export your raw git diff output',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'git': 'https://github.com/juliancwirko/meteor-pretty-diff',
     'name': 'juliancwirko:pretty-diff'
 });

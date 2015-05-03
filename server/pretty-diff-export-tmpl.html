@@ -12,7 +12,8 @@
                 background-color: #fafafa;
                 font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
             }
-            .pretty-diff-export-title {
+            .pretty-diff-export-title,
+            .pretty-diff-export-footer {
                 height: 60px;
                 line-height: 60px;
                 background-color: #36393B;
@@ -21,10 +22,26 @@
                 padding-left: 25px;
                 padding-right: 25px;
             }
+            .pretty-diff-export-footer p {
+                margin: 0;
+            }
+            .pretty-diff-export-footer a {
+                color: #ffffff;
+            }
             .pretty-diff-export-description {
                 background-color: #fff;
                 margin: 30px 25px 0;
                 padding: 25px;
+            }
+            .pretty-diff-export-description h1,
+            .pretty-diff-export-description h2,
+            .pretty-diff-export-description h3,
+            .pretty-diff-export-description h4,
+            .pretty-diff-export-description h5,
+            .pretty-diff-export-description h6,
+            .pretty-diff-export-description p {
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
             .pretty-diff-export-content {
                 padding: 30px 25px;
@@ -47,6 +64,11 @@
             <div class="pretty-diff-side-by-side pretty-diff-export-content">
                 {{{prettyDiffHtml}}}
             </div>
+            {{#if prettyDiffFooter}}
+                <div class="pretty-diff-export-footer">
+                    <small>{{{prettyDiffFooter}}}</small>
+                </div>
+            {{/if}}
         </div>
     </body>
 </html>

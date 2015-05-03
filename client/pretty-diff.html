@@ -21,14 +21,22 @@
         {{#with prettyDiffFileData}}
             <div class="pretty-diff-header {{#unless isExportDescription}}pretty-diff-hidden{{/unless}}">
                 <div class="pretty-diff-header-title-container" data-pd-hint="Title for your export">
-                    <input type="text" class="pretty-diff-header-title js-export-title" placeholder="Place your title here..">
+                    <input type="text" class="pretty-diff-header-title js-export-title" placeholder="Place your title here">
                 </div>
+
                 <div class="pretty-diff-description-container" data-pd-hint="Description for your export. You can use markdown">
-                    <textarea class="pretty-diff-header-description js-export-description" placeholder="Place your description here.."></textarea>
+                    <textarea class="pretty-diff-header-description js-export-description" placeholder="Place your description here"></textarea>
+                    <div class="pretty-diff-header-description-preview js-export-description-preview">
+                        {{{prettyDiffDescriptionPreview}}}
+                    </div>
+                </div>
+
+                <div class="pretty-diff-footer-container" data-pd-hint="Footer for your export. You can use markdown">
+                    <input type="text" class="pretty-diff-footer js-export-footer" placeholder="Place your footer text here">
                 </div>
             </div>
             <div class="pretty-diff-toolbar">
-                <a href="#" class="pretty-diff-btn pretty-diff-download-html-btn js-export-pdf">Download HTML</a>
+                <a href="#" class="pretty-diff-btn pretty-diff-download-html-btn js-export-html">Download HTML</a>
                 <a href="#" class="pretty-diff-btn pretty-diff-desc-btn js-add-description">
                     {{#if isExportDescription}}
                         Hide description
@@ -46,4 +54,8 @@
 
 <template name="prettyDiffContent">
     {{{prettyDiffHtml}}}
+</template>
+
+<template name="prettyDiffPreviewPlaceholder">
+    <span class="pretty-diff-preview-placeholder">Your description preview here</span>
 </template>

@@ -45,21 +45,32 @@ Template.prettyDiffInput.events({
     }
 });
 
+Template.prettyDiffOutput.onCreated(function () {
+    this.isExportDesc = new ReactiveVar(false);
+    this.markdownConverter = new Showdown.converter();
+});
+
+Template.prettyDiffOutput.onRendered(function () {
+    var html = Blaze.toHTML(Template.prettyDiffPreviewPlaceholder);
+    this.$('.js-export-description-preview').html(html);
+});
+
 Template.prettyDiffOutput.events({
-    'click .js-export-pdf': function (e, tmpl) {
+    'click .js-export-html': function (e, tmpl) {
         e.preventDefault();
-        var converter = new Showdown.converter();
         var data = Session.get('prettyDiffData');
         var exportTitle = tmpl.$('.js-export-title').val();
-        var exportDesc = converter.makeHtml(tmpl.$('.js-export-description').val());
+        var exportDesc = tmpl.markdownConverter.makeHtml(tmpl.$('.js-export-description').val());
+        var exportFooter = tmpl.markdownConverter.makeHtml(tmpl.$('.js-export-footer').val());
         data = _.extend(data, {
             prettyDiffTitle: exportTitle || '',
-            prettyDiffDesc: exportDesc || ''
+            prettyDiffDesc: exportDesc || '',
+            prettyDiffFooter: exportFooter || ''
         });
         if (data) {
-            Meteor.call('testmethod', data, function (err, result) {
+            Meteor.call('downloadHTMLFile', data, function (err, result) {
                 if (!err) {
-                    downloadFile(result, 'test.html', 'text/html');
+                    downloadFile(result, 'pretty-diff.html', 'text/html');
                 }
             });
         }
@@ -68,12 +79,12 @@ Template.prettyDiffOutput.events({
         e.preventDefault();
         var state = tmpl.isExportDesc.get();
         tmpl.isExportDesc.set(!state);
+    },
+    'keyup .js-export-description': function (e, tmpl) {
+        var html = tmpl.markdownConverter.makeHtml(tmpl.$('.js-export-description').val()) || Blaze.toHTML(Template.prettyDiffPreviewPlaceholder);
+        $('.js-export-description-preview').html(html);
     }
 });
-
-Template.prettyDiffOutput.created = function () {
-    this.isExportDesc = new ReactiveVar(false);
-};
 
 Template.prettyDiffOutput.helpers({
     prettyDiffFileData: function () {
@@ -90,7 +101,7 @@ Template.prettyDiffError.helpers({
     }
 });
 
-Template.prettyDiffContent.rendered = function () {
+Template.prettyDiffContent.onRendered(function () {
     var self = this;
     var langs;
     this.autorun(function () {
@@ -108,7 +119,7 @@ Template.prettyDiffContent.rendered = function () {
             }
         }
     });
-};
+});
 
 Template.registerHelper('isPrettyDiffDataLoaded', function () {
     return Session.get('prettyDiffData');
