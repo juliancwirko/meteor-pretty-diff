@@ -6,7 +6,7 @@ This package tries to solve that problem. You can use it in your Meteor apps.
 
 ### Working example
 
-- Live Demo: [http://pretty-diff.meteor.com](http://pretty-diff.meteor.com)
+- Live Demo: [http://pd.julian.io](http://pd.julian.io)
 - Demo code: [https://github.com/juliancwirko/meteor-pretty-diff-app](https://github.com/juliancwirko/meteor-pretty-diff-app)
 
 ### Usage
